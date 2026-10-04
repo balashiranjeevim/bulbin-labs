@@ -26,6 +26,24 @@
   * {
     box-sizing: border-box;
   }
+
+  /* Custom minimalist scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.4);
+    border-radius: 9999px;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: rgba(51, 65, 85, 0.5);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.7);
+  }
 }
 
 .material-symbols-outlined {
@@ -43,6 +61,114 @@
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
   vertical-align: middle;
+}
+
+/* ========================================================
+   Scroll Reveal Animations
+   ======================================================== */
+.reveal-base {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-up {
+  transform: translateY(28px);
+}
+
+.reveal-down {
+  transform: translateY(-28px);
+}
+
+.reveal-left {
+  transform: translateX(32px);
+}
+
+.reveal-right {
+  transform: translateX(-32px);
+}
+
+.reveal-zoom {
+  transform: scale(0.94);
+}
+
+.reveal-fade {
+  transform: none;
+}
+
+.reveal-visible {
+  opacity: 1 !important;
+  transform: translate(0, 0) scale(1) !important;
+}
+
+/* ========================================================
+   Continuous Micro-Motion Keyframes
+   ======================================================== */
+@keyframes beam-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+.animate-beam {
+  animation: beam-sweep 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes orbit-clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-counter {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-orbit-cw {
+  animation: orbit-clockwise 25s linear infinite;
+}
+
+.animate-orbit-ccw {
+  animation: orbit-counter 35s linear infinite;
+}
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-gentle-float {
+  animation: gentle-float 4.5s ease-in-out infinite;
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-card:hover {
+  background-size: 200% 100%;
+  animation: shimmer-sweep 2s ease infinite;
 }
 
 @layer utilities {

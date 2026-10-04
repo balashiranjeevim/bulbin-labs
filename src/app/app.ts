@@ -7,6 +7,7 @@ import { AboutComponent } from './components/about/about.component';
 import { TechnologyComponent } from './components/technology/technology.component';
 import { CtaComponent } from './components/cta/cta.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ProductModalComponent } from './components/modal/product-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ import { FooterComponent } from './components/footer/footer.component';
     TechnologyComponent,
     CtaComponent,
     FooterComponent,
+    ProductModalComponent,
   ],
   template: `
     <div class="min-h-screen bg-white dark:bg-slate-950 text-slate-950 dark:text-slate-100 transition-colors duration-300 selection:bg-[#FDE047] selection:text-slate-950">
@@ -33,6 +35,9 @@ import { FooterComponent } from './components/footer/footer.component';
         <app-cta />
       </main>
       <app-footer />
+
+      <!-- Interactive product drawer & conversation modal -->
+      <app-product-modal />
     </div>
   `,
 })
