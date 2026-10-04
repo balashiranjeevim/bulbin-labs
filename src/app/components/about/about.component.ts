@@ -5,7 +5,8 @@ import { BulbLogoComponent } from '../shared/bulb-logo.component';
 interface Principle {
   title: string;
   description: string;
-  icon: string;
+  materialIcon: string;
+  accent: string;
 }
 
 @Component({
@@ -13,28 +14,33 @@ interface Principle {
   standalone: true,
   imports: [CommonModule, BulbLogoComponent],
   template: `
-    <section id="about" class="py-24 lg:py-32 bg-[#F8FAFC]">
+    <section id="about" class="py-24 lg:py-32 bg-[#F8FAFC] dark:bg-slate-950 transition-colors duration-300">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
 
-          <!-- Left — Visual -->
+          <!-- Left — Visual with Bulb Logo -->
           <div class="relative flex justify-center lg:justify-start order-2 lg:order-1">
-            <!-- Background decorative element -->
             <div class="relative">
-              <!-- Outer ring -->
-              <div class="absolute -inset-8 rounded-3xl border border-slate-200/60 border-dashed"></div>
-              <div class="absolute -inset-16 rounded-full border border-yellow-200/30 border-dashed"
-                style="animation: spin-slow 30s linear infinite reverse;"></div>
+              <!-- Decorative rotating ring -->
+              <div class="absolute -inset-8 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 border-dashed"></div>
+              <div
+                class="absolute -inset-16 rounded-full border border-yellow-300/40 dark:border-yellow-400/20 border-dashed"
+                style="animation: spin-slow 30s linear infinite reverse;"
+              ></div>
 
               <!-- Central card -->
-              <div class="relative bg-white rounded-3xl border border-slate-200 p-12 shadow-sm flex flex-col items-center gap-6">
-                <app-bulb-logo [size]="120" cssClass="about-bulb" />
+              <div class="relative bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-10 lg:p-12 shadow-lg dark:shadow-slate-950/60 flex flex-col items-center gap-6">
+                <app-bulb-logo [size]="140" cssClass="about-bulb" />
 
                 <!-- Stats row -->
-                <div class="grid grid-cols-2 gap-4 w-full pt-4 border-t border-slate-100">
+                <div class="grid grid-cols-2 gap-4 w-full pt-6 border-t border-slate-100 dark:border-slate-800">
                   <div *ngFor="let stat of stats" class="text-center">
-                    <div class="text-2xl font-black text-slate-950 mb-0.5">{{ stat.value }}</div>
-                    <div class="text-xs text-slate-500 font-medium">{{ stat.label }}</div>
+                    <div class="text-xl lg:text-2xl font-black text-slate-950 dark:text-white mb-0.5">
+                      {{ stat.value }}
+                    </div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                      {{ stat.label }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -45,27 +51,39 @@ interface Principle {
           <div class="order-1 lg:order-2 flex flex-col gap-8">
             <div>
               <p class="text-xs font-bold tracking-widest text-[#38BDF8] uppercase mb-4">About Bulbin Labs</p>
-              <h2 class="text-4xl lg:text-5xl font-bold text-slate-950 leading-tight mb-6">
+              <h2 class="text-4xl lg:text-5xl font-extrabold text-slate-950 dark:text-white leading-tight mb-6">
                 Building with purpose.
               </h2>
-              <p class="text-lg text-slate-600 leading-relaxed mb-4">
+              <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
                 Bulbin Labs is a technology company focused on creating useful products that combine software, artificial intelligence, automation, and thoughtful design.
               </p>
-              <p class="text-base text-slate-500 leading-relaxed">
+              <p class="text-base text-slate-500 dark:text-slate-400 leading-relaxed">
                 We believe that great technology should feel simple to use, even when it's complex under the hood. Every product we build starts with a real problem and ends with a solution people actually want to use.
               </p>
             </div>
 
-            <!-- Principles grid -->
+            <!-- Principles grid with Google Material Symbols -->
             <div class="grid sm:grid-cols-2 gap-4">
               <div
                 *ngFor="let principle of principles"
-                class="bg-white rounded-xl border border-slate-200 p-5 flex flex-col gap-3 hover:border-slate-300 hover:shadow-sm transition-all duration-200"
+                class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 flex flex-col gap-3 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-md transition-all duration-200"
               >
-                <div class="text-xl">{{ principle.icon }}</div>
+                <div
+                  class="w-10 h-10 rounded-xl flex items-center justify-center"
+                  [style.background]="principle.accent + '20'"
+                  [style.color]="principle.accent"
+                >
+                  <span class="material-symbols-outlined text-[22px]">
+                    {{ principle.materialIcon }}
+                  </span>
+                </div>
                 <div>
-                  <h4 class="text-sm font-bold text-slate-900 mb-1">{{ principle.title }}</h4>
-                  <p class="text-xs text-slate-500 leading-relaxed">{{ principle.description }}</p>
+                  <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1">
+                    {{ principle.title }}
+                  </h3>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    {{ principle.description }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -80,7 +98,7 @@ interface Principle {
         to { transform: rotate(360deg); }
       }
       .about-bulb {
-        filter: drop-shadow(0 4px 16px rgba(253,224,71,0.3));
+        filter: drop-shadow(0 4px 20px rgba(253,224,71,0.35));
       }
     </style>
   `,
@@ -95,24 +113,28 @@ export class AboutComponent {
 
   principles: Principle[] = [
     {
-      icon: '🎯',
+      materialIcon: 'center_focus_strong',
       title: 'Product-first development',
       description: 'Every decision starts with the product experience, not the technology.',
+      accent: '#FDE047',
     },
     {
-      icon: '🌍',
+      materialIcon: 'public',
       title: 'Real-world problems',
       description: 'We solve actual pain points — not hypothetical ones from pitch decks.',
+      accent: '#38BDF8',
     },
     {
-      icon: '✦',
+      materialIcon: 'auto_awesome',
       title: 'Radical simplicity',
       description: 'Complexity hidden, clarity exposed. Simplicity is the hardest thing to achieve.',
+      accent: '#818CF8',
     },
     {
-      icon: '🔭',
+      materialIcon: 'explore',
       title: 'Long-term thinking',
       description: 'We build infrastructure that can carry years of growth, not just the MVP.',
+      accent: '#34D399',
     },
   ];
 }

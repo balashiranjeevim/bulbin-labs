@@ -22,16 +22,18 @@ import { FooterComponent } from './components/footer/footer.component';
     FooterComponent,
   ],
   template: `
-    <app-navbar />
-    <main>
-      <app-hero />
-      <app-products />
-      <app-philosophy />
-      <app-about />
-      <app-technology />
-      <app-cta />
-    </main>
-    <app-footer />
+    <div class="min-h-screen bg-white dark:bg-slate-950 text-slate-950 dark:text-slate-100 transition-colors duration-300 selection:bg-[#FDE047] selection:text-slate-950">
+      <app-navbar />
+      <main>
+        <app-hero />
+        <app-products />
+        <app-philosophy />
+        <app-about />
+        <app-technology />
+        <app-cta />
+      </main>
+      <app-footer />
+    </div>
   `,
 })
 export class App {}

@@ -5,8 +5,9 @@ interface Stage {
   number: string;
   title: string;
   description: string;
+  materialIcon: string;
   accent: string;
-  bg: string;
+  bgLight: string;
 }
 
 @Component({
@@ -14,16 +15,16 @@ interface Stage {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section id="philosophy" class="py-24 lg:py-32 bg-white">
+    <section id="philosophy" class="py-24 lg:py-32 bg-white dark:bg-slate-950 transition-colors duration-300">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
         <!-- Section header -->
         <div class="max-w-2xl mb-20">
           <p class="text-xs font-bold tracking-widest text-[#FDE047] uppercase mb-4">How we work</p>
-          <h2 class="text-4xl lg:text-5xl font-bold text-slate-950 leading-tight mb-6">
+          <h2 class="text-4xl lg:text-5xl font-extrabold text-slate-950 dark:text-white leading-tight mb-6">
             Ideas are only the beginning.
           </h2>
-          <p class="text-lg text-slate-500 leading-relaxed">
+          <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
             We follow a disciplined process — from discovery to scale — ensuring that every product we build earns its place in the real world.
           </p>
         </div>
@@ -31,47 +32,62 @@ interface Stage {
         <!-- Process stages -->
         <div class="relative">
           <!-- Connector line (desktop) -->
-          <div class="hidden lg:block absolute top-10 left-0 right-0 h-px"
-            style="background: linear-gradient(90deg, #FDE047 0%, #38BDF8 100%); margin-left: 64px; margin-right: 64px;">
-          </div>
+          <div
+            class="hidden lg:block absolute top-10 left-0 right-0 h-0.5 opacity-60"
+            style="background: linear-gradient(90deg, #FDE047 0%, #38BDF8 100%); margin-left: 64px; margin-right: 64px;"
+          ></div>
 
           <div class="grid lg:grid-cols-4 gap-8 lg:gap-6">
             <div
               *ngFor="let stage of stages; let i = index"
-              class="relative flex flex-col gap-5"
+              class="relative flex flex-col gap-5 group"
             >
-              <!-- Number circle -->
-              <div class="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center text-2xl font-black border-2 shadow-sm"
-                [style.background]="stage.bg"
-                [style.border-color]="stage.accent + '40'"
-                [style.color]="stage.accent">
-                {{ stage.number }}
+              <!-- Icon & Number badge -->
+              <div class="flex items-center gap-3">
+                <div
+                  class="relative z-10 w-20 h-20 rounded-2xl flex flex-col items-center justify-center border shadow-sm transition-transform duration-300 group-hover:scale-105 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800"
+                  [style.border-color]="stage.accent + '60'"
+                >
+                  <span class="material-symbols-outlined text-[24px] mb-0.5" [style.color]="stage.accent">
+                    {{ stage.materialIcon }}
+                  </span>
+                  <span class="text-xs font-extrabold tracking-wider" [style.color]="stage.accent">
+                    {{ stage.number }}
+                  </span>
+                </div>
               </div>
 
               <!-- Content -->
-              <div class="flex flex-col gap-2 lg:pt-4">
-                <h3 class="text-lg font-bold text-slate-950">{{ stage.title }}</h3>
-                <p class="text-sm text-slate-500 leading-relaxed">{{ stage.description }}</p>
+              <div class="flex flex-col gap-2 lg:pt-2">
+                <h3 class="text-lg font-bold text-slate-950 dark:text-white group-hover:text-[#38BDF8] transition-colors">
+                  {{ stage.title }}
+                </h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  {{ stage.description }}
+                </p>
               </div>
 
-              <!-- Connector arrow (mobile) -->
-              <div *ngIf="i < stages.length - 1" class="lg:hidden flex items-center justify-start pl-8">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="rotate-90 text-slate-300">
-                  <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+              <!-- Mobile connector arrow -->
+              <div *ngIf="i < stages.length - 1" class="lg:hidden flex items-center justify-start pl-8 text-slate-300 dark:text-slate-700">
+                <span class="material-symbols-outlined text-[24px]">arrow_downward</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Quote / tagline -->
-        <div class="mt-20 bg-[#F8FAFC] rounded-2xl border border-slate-200 px-8 py-10 lg:px-16 lg:py-12 text-center">
-          <blockquote class="text-2xl lg:text-3xl font-semibold text-slate-800 leading-snug text-balance max-w-3xl mx-auto mb-6">
+        <!-- Quote / tagline card -->
+        <div class="mt-20 bg-[#F8FAFC] dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 px-8 py-10 lg:px-16 lg:py-14 text-center shadow-sm">
+          <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-yellow-100/60 dark:bg-yellow-950/40 text-yellow-600 dark:text-yellow-400 mb-6">
+            <span class="material-symbols-outlined text-[28px]">format_quote</span>
+          </div>
+          <blockquote class="text-2xl lg:text-3xl font-semibold text-slate-900 dark:text-slate-100 leading-snug text-balance max-w-3xl mx-auto mb-6">
             "We don't build software for the sake of building. We build to solve real things, for real people, in the real world."
           </blockquote>
           <div class="flex items-center justify-center gap-3">
             <div class="w-8 h-0.5" style="background: linear-gradient(90deg, #FDE047, #38BDF8);"></div>
-            <span class="text-sm font-semibold text-slate-500 tracking-wide">The Bulbin Labs Approach</span>
+            <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+              The Bulbin Labs Approach
+            </span>
             <div class="w-8 h-0.5" style="background: linear-gradient(90deg, #38BDF8, #FDE047);"></div>
           </div>
         </div>
@@ -85,29 +101,33 @@ export class PhilosophyComponent {
       number: '01',
       title: 'Discover',
       description: 'We start with the problem, not the solution. Understanding real pain points, user behavior, and market gaps before writing a single line.',
+      materialIcon: 'travel_explore',
       accent: '#FDE047',
-      bg: '#FEFCE8',
+      bgLight: '#FEFCE8',
     },
     {
       number: '02',
       title: 'Build',
       description: 'We move fast with modern technology stacks — AI, cloud, automation — building clean, scalable foundations that can grow with the product.',
+      materialIcon: 'terminal',
       accent: '#38BDF8',
-      bg: '#F0F9FF',
+      bgLight: '#F0F9FF',
     },
     {
       number: '03',
       title: 'Validate',
       description: 'Real users. Real feedback. We test, iterate, and refine until the product earns genuine traction and solves what it set out to solve.',
+      materialIcon: 'verified',
       accent: '#38BDF8',
-      bg: '#F0F9FF',
+      bgLight: '#F0F9FF',
     },
     {
       number: '04',
       title: 'Scale',
       description: 'Once proven, we grow — adding features, expanding reach, and building the infrastructure needed to serve thousands of users reliably.',
+      materialIcon: 'trending_up',
       accent: '#38BDF8',
-      bg: '#F0F9FF',
+      bgLight: '#F0F9FF',
     },
   ];
 }

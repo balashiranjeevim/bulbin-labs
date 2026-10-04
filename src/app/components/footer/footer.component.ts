@@ -2,28 +2,24 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BulbLogoComponent } from '../shared/bulb-logo.component';
 
-interface SocialLink {
-  label: string;
-  href: string;
-  svgPath: string;
-}
-
 @Component({
   selector: 'app-footer',
   standalone: true,
   imports: [CommonModule, BulbLogoComponent],
   template: `
-    <footer class="bg-white border-t border-slate-200">
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-850 transition-colors duration-300">
       <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
         <div class="grid lg:grid-cols-5 gap-12">
 
-          <!-- Brand col -->
+          <!-- Brand column -->
           <div class="lg:col-span-2 flex flex-col gap-5">
-            <a href="#" class="flex items-center gap-2.5 w-fit">
-              <app-bulb-logo [size]="36" />
-              <span class="text-sm font-bold tracking-widest text-slate-950 uppercase">Bulbin Labs</span>
+            <a href="#" class="flex items-center gap-3 w-fit group">
+              <app-bulb-logo [size]="36" cssClass="transition-transform duration-300 group-hover:scale-105" />
+              <span class="text-sm font-extrabold tracking-widest text-slate-950 dark:text-white uppercase">
+                Bulbin Labs
+              </span>
             </a>
-            <p class="text-sm text-slate-500 leading-relaxed max-w-xs">
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-xs">
               Building technology that solves real problems — one product at a time.
             </p>
 
@@ -33,7 +29,7 @@ interface SocialLink {
               <a
                 href="https://linkedin.com/company/bulbinlabs"
                 aria-label="LinkedIn"
-                class="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-950 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
+                class="w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all duration-200"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -47,7 +43,7 @@ interface SocialLink {
               <a
                 href="https://github.com/bulbinlabs"
                 aria-label="GitHub"
-                class="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-950 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
+                class="w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all duration-200"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -59,7 +55,7 @@ interface SocialLink {
               <a
                 href="https://instagram.com/bulbinlabs"
                 aria-label="Instagram"
-                class="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-950 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
+                class="w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all duration-200"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -74,12 +70,12 @@ interface SocialLink {
 
           <!-- Links columns -->
           <div *ngFor="let col of linkCols" class="flex flex-col gap-4">
-            <h4 class="text-xs font-bold tracking-widest text-slate-950 uppercase">{{ col.heading }}</h4>
+            <h4 class="text-xs font-bold tracking-widest text-slate-950 dark:text-white uppercase">{{ col.heading }}</h4>
             <nav class="flex flex-col gap-3">
               <a
                 *ngFor="let link of col.links"
                 [href]="link.href"
-                class="text-sm text-slate-500 hover:text-slate-950 transition-colors duration-150"
+                class="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white transition-colors duration-150"
               >
                 {{ link.label }}
               </a>
@@ -88,11 +84,11 @@ interface SocialLink {
         </div>
 
         <!-- Bottom bar -->
-        <div class="mt-14 pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p class="text-xs text-slate-400">© 2026 Bulbin Labs. All rights reserved.</p>
-          <div class="flex items-center gap-1.5 text-xs text-slate-400">
+        <div class="mt-14 pt-8 border-t border-slate-100 dark:border-slate-850 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p class="text-xs text-slate-500 dark:text-slate-400">© 2026 Bulbin Labs. All rights reserved.</p>
+          <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
             <span>Made with</span>
-            <span class="text-yellow-400">💡</span>
+            <span class="material-symbols-outlined text-[16px] text-yellow-500">lightbulb</span>
             <span>in India</span>
           </div>
         </div>
@@ -106,6 +102,7 @@ export class FooterComponent {
       heading: 'Company',
       links: [
         { label: 'Products', href: '#products' },
+        { label: 'Solutions', href: '#philosophy' },
         { label: 'About', href: '#about' },
         { label: 'Contact', href: '#contact' },
       ],
