@@ -97,7 +97,7 @@ import { ModalService } from '../../services/modal.service';
           class="mt-14 flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-slate-500 dark:text-slate-400"
         >
           <a
-            href="mailto:contact@bulbinlabs.com"
+            href="mailto:contact@bulbin.in"
             class="flex items-center gap-2 hover:text-[#38BDF8] dark:hover:text-[#38BDF8] transition-colors"
           >
             <span class="material-symbols-outlined text-[18px]">mail</span>
@@ -157,7 +157,7 @@ export class CtaComponent {
   copied = signal(false);
 
   copyEmail() {
-    navigator.clipboard?.writeText('hello@bulbinlabs.com');
+    navigator.clipboard?.writeText('contact@bulbin.in');
     this.copied.set(true);
     setTimeout(() => this.copied.set(false), 2500);
   }

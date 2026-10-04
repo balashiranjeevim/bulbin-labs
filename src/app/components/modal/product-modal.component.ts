@@ -159,13 +159,7 @@ import { ModalService } from '../../services/modal.service';
         </div>
 
         <form (submit)="submitInquiry($event)" class="space-y-4">
-          <div *ngIf="submitted()" class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-center">
-            <span class="material-symbols-outlined text-[32px] text-emerald-600 dark:text-emerald-400 mb-1">check_circle</span>
-            <h4 class="text-sm font-bold text-emerald-900 dark:text-emerald-200">Message received!</h4>
-            <p class="text-xs text-emerald-700 dark:text-emerald-400 mt-1">We'll review your project and get back to you within 24 hours.</p>
-          </div>
-
-          <div *ngIf="!submitted()" class="space-y-4">
+          <div class="space-y-4">
             <div>
               <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Your Name</label>
               <input
@@ -234,7 +228,6 @@ export class ProductModalComponent {
   readonly modalService = inject(ModalService);
 
   accessRequested = signal(false);
-  submitted = signal(false);
 
   formName = '';
   formEmail = '';
@@ -253,14 +246,13 @@ export class ProductModalComponent {
 
   submitInquiry(e: Event) {
     e.preventDefault();
-    if (!this.formName || !this.formEmail) return;
-    this.submitted.set(true);
-    setTimeout(() => {
-      this.submitted.set(false);
-      this.modalService.closeContact();
-      this.formName = '';
-      this.formEmail = '';
-      this.formMessage = '';
-    }, 2000);
+    const subject = `Website inquiry from ${this.formName}`;
+    const body = [
+      `Name: ${this.formName}`,
+      `Reply email: ${this.formEmail}`,
+      '',
+      this.formMessage,
+    ].join('\n');
+    window.location.href = `mailto:contact@bulbin.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 }
